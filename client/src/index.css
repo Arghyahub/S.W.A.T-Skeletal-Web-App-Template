@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Merriweather+Sans&family=Prompt&family=Raleway&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+    :root {
+      --background: #181818;
+      --foreground: #212121;
+      --hover: #3d3d3d;
+      --primary: #FFFFFF;
+      --secondary: #CD201F;
+      --fontHead:  'Merriweather Sans', sans-serif;
+      --fontMain: 'Prompt', sans-serif;
+    }
+   
+    .dark {
+      --background: 240 10% 3.9%;
+      --foreground: 0 0% 98%;
+      --primary: 0 0% 98%;
+      --secondary: 240 3.7% 15.9%;
+    }
+}
+  
