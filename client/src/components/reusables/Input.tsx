@@ -1,17 +1,29 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+
+import { 
+  EyeNotSVG,
+  EyeSVG
+} from "@/assets";
 
 interface inputProps {
   StartIcon: React.ElementType,
   EndIcon?: React.ElementType,
   onChangeValidate?: (e:React.ChangeEvent<HTMLInputElement>) => void,
   inputType?: string,
-  label: string
+  label: string,
+  name: string
 }
 
-const Input:React.FC<inputProps> = ({ StartIcon , EndIcon, onChangeValidate, inputType, label='' }) => {
+const Input:React.FC<inputProps> = ({ StartIcon , EndIcon, onChangeValidate, inputType, label='', name }) => {
   const inputBox = useRef(null) ;
   const [Valid, setValid] = useState<boolean>(false) ;
   const [TypeOfInput, setTypeOfInput] = useState<'text'|'password'>('text') ;
+
+  useEffect(()=> {
+    if (inputType==='password'){
+      setTypeOfInput('password') ;
+    }
+  },[])
 
   const defaultValidate = (e:React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -27,7 +39,15 @@ const Input:React.FC<inputProps> = ({ StartIcon , EndIcon, onChangeValidate, inp
       case 'email':
         setValid(/\S+@\S+\.\S+/.test(e.target.value)) ;
         break;
+        case 'password':
+          setValid(true) ;
+          break;
     }
+  }
+
+  const toggleTypeOfInput = (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    setTypeOfInput(prev => (prev=='text'? 'password':'text')) ;
   }
   
   return (
@@ -38,15 +58,17 @@ const Input:React.FC<inputProps> = ({ StartIcon , EndIcon, onChangeValidate, inp
       <div className="input-box flex flex-col h-full w-full px-3">
         <p className="text-xs text-gray-400 font-thin">{label}</p>
         <input
-          type="text"
+          type={TypeOfInput}
           className="flex flex-row w-full h-5 focus:outline-none font-sans"
-          typeof={TypeOfInput}
           ref={inputBox}
+          name={name}
           onChange={(e) => onChangeValidate? onChangeValidate(e): defaultValidate(e)}
         />
       </div>
       {(inputType==='password')? (
-        <></>
+        <button onClick={toggleTypeOfInput} className={Valid? '' : 'invisible'}>
+          {TypeOfInput==='text'? <EyeSVG/>:<EyeNotSVG/>}
+        </button>
       ):EndIcon? (
         <EndIcon className={Valid? 'text-green-400' : 'invisible'} />
       ):<></>}

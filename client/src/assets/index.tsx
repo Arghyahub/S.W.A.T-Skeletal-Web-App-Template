@@ -6,6 +6,8 @@ import AuthVec from "./AuthVec.jpg";
 import CheckSVG from "./CheckSVG";
 import LockSVG from "./LockSVG"
 import EditSVG from "./EditSVG"
+import EyeSVG from "./EyeSVG"
+import EyeNotSVG from "./EyeNotSVG"
 
 export {
     BarsSVG,
@@ -16,6 +18,7 @@ export {
     CheckSVG,
     LockSVG,
     EditSVG,
-
+    EyeSVG,
+    EyeNotSVG
     
 }

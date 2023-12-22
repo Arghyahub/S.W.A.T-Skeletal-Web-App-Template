@@ -17,16 +17,16 @@ const Navbar = ({ className = "" }) => {
       )}
     >
       {/* Left options */}
-      <div className="flex flex-row ml-4">
-        <BarsSVG />
-        <LogoSVG className="ml-3" />
-        <h2 className="text-white special-font ml-2 font-semibold">
+      <div className="flex flex-row items-center ml-4 h-full">
+        <BarsSVG className='w-8 h-8' />
+        <LogoSVG className="ml-3 w-8 h-8 text-[var(--secondary)]" />
+        <h6 className="text-white special-font ml-2 font-semibold">
           W h e r e I L e f t
-        </h2>
+        </h6>
       </div>
 
       {/* Right options */}
-      <div className="ml-auto mr-4">
+      <div className="ml-auto mr-3 h-full flex flex-row items-center">
         <UserSVG className="text-white" />
       </div>
 
