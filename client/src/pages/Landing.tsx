@@ -3,15 +3,13 @@ import { useNavigate } from "react-router-dom";
 
 import { USER } from "@/services/service";
 
-const Home = () => {
-  const navigate = useNavigate();
-
+const Landing = () => {
+  const navigate = useNavigate() ;
   useEffect(() => {
     USER.validate(navigate) ;
-  },[])
-  return (
-    <div>Home</div>
-  )
-}
+  }, [])
 
-export default Home
+  return <div>Landing</div>;
+};
+
+export default Landing;

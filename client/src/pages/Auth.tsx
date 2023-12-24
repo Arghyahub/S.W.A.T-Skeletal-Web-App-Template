@@ -19,6 +19,14 @@ import {
 } from "@/components/reusables/index";
 import { USER } from "@/services/service";
 
+interface inputParam {
+  target: {
+    name: HTMLInputElement,
+    email: HTMLInputElement,
+    passwd: HTMLInputElement
+  }
+}
+
 const Auth = () => {
   const navigate = useNavigate();
   const [IsNewUser, setIsNewUser] = useState(false) ;
@@ -28,13 +36,13 @@ const Auth = () => {
     USER.signup( e.target.name.value, e.target.email.value, e.target.passwd.value, setToastState, navigate ) ;
   }
 
-  const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e:React.FormEvent<HTMLFormElement> & inputParam) => {
     e.preventDefault();
     if (IsNewUser){
-      signup(e);
+      USER.signup( e.target.name.value, e.target.email.value, e.target.passwd.value, setToastState, navigate ) ;
     }
     else{
-      signup(e);
+      USER.login( e.target.email.value, e.target.passwd.value, setToastState, navigate )
     }
   }
 

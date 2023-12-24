@@ -10,34 +10,23 @@ import { useToast } from "@/components/ui/use-toast"
 import { Toaster } from "@/components/ui/toaster"
 
 import "./App.css"
-import Home from "./pages/Home";
+import Landing from "./pages/Landing";
 import Auth from "./pages/Auth";
 import { screenWidthAtom, toastParamAtom } from "./recoil/atom";
-
-const LinkBtns = () => {
-  return (
-      <div className="flex w-full justify-center gap-4">
-          <Link to={'/'} className="px-2 py-1 bg-green-400 text-white rounded-md" >Home</Link>
-          <Link to={'/demo'} className="px-2 py-1 bg-green-400 text-white rounded-md" >Demo</Link>
-      </div>
-  )
-}
+import Home from "./pages/Home";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />
+    element: <Landing />
   },
   {
     path: "/auth",
     element: <Auth />
   },
   {
-    path: "/demo",
-    element: <div className="h-full w-screen bg-red-300 flex flex-col justify-center items-center gap-10">
-          <h1>Checkout my other projects <a href="https://cv-arghyahub.vercel.app/">Here</a></h1>
-          <LinkBtns />
-      </div>
+    path: "/home",
+    element: <Home />
   },
   {
     path: "*",

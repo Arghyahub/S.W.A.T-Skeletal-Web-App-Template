@@ -1,17 +1,18 @@
 import 'dotenv/config'
-import Express from "express"
+import Express , { Request, Response } from "express"
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt"
 
-import { UserModel } from "../db";
 const SECRET = process.env.SECRET
-
+import { UserModel } from "../db";
+import validateUser from '../middleware/authware';
 
 const router = Express() ;
 
 interface signupParam {name:string,email:string,passwd:string};
+interface loginParam { email:string, passwd: string }
 
-router.post('/signup', async (req,res)=> {
+router.post('/signup', async (req:Request, res:Response)=> {
     try{
         const { name , email, passwd }:signupParam = req.body ;
         if (!name || !email || !passwd){
@@ -42,6 +43,37 @@ router.post('/signup', async (req,res)=> {
     catch(err) {
         console.log(":: Error in Signup (auth.ts) ::\n",err) ;
         res.status(500).json({success: false, msg: 'Internal server error'}) ;
+    }
+})
+
+router.post('/login',async (req:Request, res:Response)=> {
+    try {
+        const { email, passwd }:loginParam = req.body ;
+
+        console.log(email,passwd) ;
+        
+        if (!email || !passwd){
+            return res.status(404).json({success: false, msg: "Some fields are empty"})
+        }
+        const user = await UserModel.findOne({email: email}) ;
+        if (!user){
+            return res.status(404).json({success: false, valid: false, msg: "User not found"})
+        }
+
+        const passwdMatch = await bcrypt.compare(passwd,user.passwd) ;
+        if (!passwdMatch){
+            return res.status(401).json({success: false, msg: "Wrong password"}) ;
+        }
+        const payload = {
+            id: user._id,
+            email: email
+        }
+        const token = jwt.sign(payload,SECRET) ;
+
+        return res.status(200).json({success: true, token: token, msg: "Successfully logged in"})
+    } catch (error) {
+        console.log(":: /login(auth.ts) ::\n",error) ;
+        return res.status(200).json({success: false, msg: "Internal server error"})
     }
 })
 
