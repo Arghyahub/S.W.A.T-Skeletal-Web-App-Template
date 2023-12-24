@@ -3,6 +3,7 @@ import { toastParamAtom } from "@/recoil/atom";
 import { useRecoilState } from "recoil";
 import { ToastAction } from "@/components/ui/toast"
 import { useToast } from "@/components/ui/use-toast"
+import { useNavigate } from "react-router-dom";
 
 import Navbar from "@/components/navbar/Navbar";
 import { 
@@ -19,12 +20,12 @@ import {
 import { USER } from "@/services/service";
 
 const Auth = () => {
-  const { toast } = useToast()
+  const navigate = useNavigate();
   const [IsNewUser, setIsNewUser] = useState(false) ;
   const [ToastState, setToastState] = useRecoilState(toastParamAtom);
 
   function signup(e){
-    USER.signup( e.target.name.value, e.target.email.value, e.target.passwd.value, setToastState ) ;
+    USER.signup( e.target.name.value, e.target.email.value, e.target.passwd.value, setToastState, navigate ) ;
   }
 
   const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
