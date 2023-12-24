@@ -70,7 +70,7 @@ const Input:React.FC<inputProps> = ({ StartIcon , EndIcon, onChangeValidate, inp
           {TypeOfInput==='text'? <EyeSVG/>:<EyeNotSVG/>}
         </button>
       ):EndIcon? (
-        <EndIcon className={Valid? 'text-green-400' : 'invisible'} />
+        <EndIcon className={`w-6 h-6  ${Valid? 'text-green-400' : 'invisible'}`} />
       ):<></>}
     </div>
   );

@@ -1,12 +1,18 @@
+import { useEffect, useState } from "react";
 import {
   createBrowserRouter,
   RouterProvider,
   Link
 } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { ToastAction } from "@/components/ui/toast"
+import { useToast } from "@/components/ui/use-toast"
+import { Toaster } from "@/components/ui/toaster"
 
 import "./App.css"
 import Home from "./pages/Home";
 import Auth from "./pages/Auth";
+import { screenWidthAtom, toastParamAtom } from "./recoil/atom";
 
 const LinkBtns = () => {
   return (
@@ -40,8 +46,41 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
+  const { toast } = useToast()
+  // Calculating screen width
+  const [ScreenWidth, setScreenWidth] = useRecoilState(screenWidthAtom);
+  const [ToastState, setToastState] = useRecoilState(toastParamAtom);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []); // complete
+
+  // Toast config
+  useEffect(()=>{
+    if (ToastState.desc.length===0) return;
+    const copyToast = {...ToastState} ;
+    if (copyToast.hasFunc){
+      toast({ title: copyToast.title, description: copyToast.desc, action: <ToastAction onClick={copyToast.func} altText="Try again">Try again</ToastAction> })
+    }
+    else{
+      toast({ title: copyToast.title, description: copyToast.desc, duration: 3000})
+    }
+    setToastState({title: '',desc:'',hasFunc: false, func: ()=>{}}) ;
+  },[ToastState])
+
+
+
   return (
-    <RouterProvider router={router} />
+    <>
+      <RouterProvider router={router} />
+      <Toaster />
+    </>
   )
 }
 
