@@ -1,6 +1,10 @@
 import { NavigateFunction } from "react-router-dom";
 
 const BACKEND = import.meta.env.VITE_BACKEND ;
+import { 
+    UserDataType
+} from "@/types/types";
+import { SetterOrUpdater } from "recoil";
 
 interface loginRespType {
     success: boolean,
@@ -10,9 +14,46 @@ interface loginRespType {
     valid?: boolean
 }
 
+interface ValidateRespType {
+    user?: UserDataType,
+    success?: boolean,
+    valid?: boolean
+}
+
 class USER {
-    public static validate(navigate:NavigateFunction) {
-        const token = localStorage.getItem('token') ;
+    public static async validate(navigate:NavigateFunction, setUser:SetterOrUpdater<UserDataType>, route='/') {
+        try {
+            const token = localStorage.getItem('token') ;
+            if (!token){
+                if (route==='/') return;
+                else navigate('/');
+            }
+            const resp = await fetch(`${BACKEND}/auth/validate`,{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({token: token}) 
+            })
+            const res:ValidateRespType = await resp.json() ;
+
+            if (res.valid && !res.valid){
+                localStorage.removeItem('token') ;
+                navigate('/') ;
+                return;
+            }
+
+            if (res.user){
+                setUser(res.user) ;
+                navigate('/home') ;
+            }
+            else{
+                if (route==='/') return;
+                else navigate('/');
+            }
+        } catch (error) {
+            console.log(error) ;
+        }
     }
 
     public static async signup(name:string, email:string, passwd: string, setToastState, navigate:NavigateFunction ){

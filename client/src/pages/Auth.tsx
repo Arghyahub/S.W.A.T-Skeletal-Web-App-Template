@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { toastParamAtom } from "@/recoil/atom";
-import { useRecoilState } from "recoil";
+import { screenWidthAtom, toastParamAtom } from "@/recoil/atom";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { ToastAction } from "@/components/ui/toast"
 import { useToast } from "@/components/ui/use-toast"
 import { useNavigate } from "react-router-dom";
@@ -31,10 +31,7 @@ const Auth = () => {
   const navigate = useNavigate();
   const [IsNewUser, setIsNewUser] = useState(false) ;
   const [ToastState, setToastState] = useRecoilState(toastParamAtom);
-
-  function signup(e){
-    USER.signup( e.target.name.value, e.target.email.value, e.target.passwd.value, setToastState, navigate ) ;
-  }
+  const screenWidth = useRecoilValue(screenWidthAtom) ;
 
   const handleSubmit = (e:React.FormEvent<HTMLFormElement> & inputParam) => {
     e.preventDefault();
@@ -52,13 +49,16 @@ const Auth = () => {
       <div className="h-full w-full flex flex-row justify-center items-center bg-[var(--hover)] shadow-2xl">
 
         <div className="w-11/12 h-5/6 backdrop-blur-3xl bg-[var(--primary)] rounded-xl shadow-2xl flex flex-row">
-          <div className="right-img h-full w-3/5 flex flex-row justify-center">
+          <div className={`right-img h-full w-3/5 flex flex-row justify-center ${screenWidth<700? 'hidden':''}`}>
             <img src={AuthVec} alt="Vector Image" className="h-full w-full object-contain p-2" />
           </div>
 
-          <div className="left-form flex flex-col h-full w-2/5min-w-72 justify-center items-center p-4 rounded-xl gap-4">
-            <h3 className="w-full font-semibold">Welcome User</h3>
-            <p className="w-full">Join our product and start creating value</p>
+          <div className={`left-form flex flex-col h-full justify-center items-center p-4 rounded-xl gap-4 ${screenWidth<700? 'w-full':'w-2/5'}`}>
+            {(screenWidth<700) && (
+              <img src={AuthVec} alt="Vector Image" className="h-40 w-40 object-contain p-2 -mb-7" />
+            )}
+            <h3 className={`w-full font-semibold ${screenWidth<700? 'text-center':''}`}>Welcome User</h3>
+            <p className={`w-full ${screenWidth<700? 'text-center':''}`}>Join our product and start creating value</p>
 
             {IsNewUser? 
             <form onSubmit={handleSubmit} className="b-2 w-full m-4 flex flex-col gap-4 py-2">

@@ -1,13 +1,10 @@
 import { atom } from "recoil";
 
-interface userDataType {
-    name: string,
-    email: string,
-}
+import { UserDataType } from "@/types/types";
 
 const userDataAtom = atom({
     key: 'user', // unique ID (with respect to other atoms/selectors)
-    default: { name: '', email: '' } as userDataType, // default value (aka initial value)
+    default: { name: '', email: '', _id: '' } as UserDataType, // default value (aka initial value)
 });
 
 const screenWidthAtom = atom({

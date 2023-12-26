@@ -6,11 +6,13 @@ import bcrypt from "bcrypt"
 const SECRET = process.env.SECRET
 import { UserModel } from "../db";
 import validateUser from '../middleware/authware';
+import { userDocType } from '../types/types';
 
 const router = Express() ;
 
 interface signupParam {name:string,email:string,passwd:string};
 interface loginParam { email:string, passwd: string }
+interface RequestWithUser extends Request { user: userDocType }
 
 router.post('/signup', async (req:Request, res:Response)=> {
     try{
@@ -76,5 +78,10 @@ router.post('/login',async (req:Request, res:Response)=> {
         return res.status(200).json({success: false, msg: "Internal server error"})
     }
 })
+
+router.post('/validate',validateUser,(req: RequestWithUser ,res)=> {
+    res.status(200).json({user: req.user}) ;
+})
+
 
 export default router
