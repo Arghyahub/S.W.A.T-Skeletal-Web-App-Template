@@ -1,4 +1,5 @@
-import BarsSVG from "./BarsSVG";
+/* eslint-disable react-refresh/only-export-components */
+import BarsSVG from "./BarsSvg";
 import LogoSVG from "./LogoSVG";
 import UserSVG from "./UserSVG";
 import EmailSVG from "./EmailSVG";
@@ -8,6 +9,7 @@ import LockSVG from "./LockSVG"
 import EditSVG from "./EditSVG"
 import EyeSVG from "./EyeSVG"
 import EyeNotSVG from "./EyeNotSVG"
+import backgroundImg from "./backgroundImg.jpg"
 
 export {
     BarsSVG,
@@ -19,6 +21,7 @@ export {
     LockSVG,
     EditSVG,
     EyeSVG,
-    EyeNotSVG
+    EyeNotSVG,
+    backgroundImg,
     
 }

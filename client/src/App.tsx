@@ -21,7 +21,7 @@ const router = createBrowserRouter([
     element: <Landing />
   },
   {
-    path: "/auth",
+    path: "/auth/:param?",
     element: <Auth />
   },
   {
