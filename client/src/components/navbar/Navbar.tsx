@@ -7,6 +7,7 @@ import {
   UserSVG
 
 } from "../../assets/index";
+import Sidebar from "../sidebar/Sidebar";
 
 const Navbar = ({ className = "" }) => {
   return (
@@ -18,7 +19,7 @@ const Navbar = ({ className = "" }) => {
     >
       {/* Left options */}
       <div className="flex flex-row items-center ml-4 h-full">
-        <BarsSVG className='w-8 h-8' />
+        <Sidebar TriggerIcon={BarsSVG} />
         <LogoSVG className="ml-3 w-8 h-8 text-[var(--secondary)]" />
         <h6 className="text-white special-font ml-2 font-semibold">
           W h e r e I L e f t
