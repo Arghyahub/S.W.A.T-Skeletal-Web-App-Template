@@ -10,6 +10,10 @@ import EditSVG from "./EditSVG"
 import EyeSVG from "./EyeSVG"
 import EyeNotSVG from "./EyeNotSVG"
 import backgroundImg from "./backgroundImg.jpg"
+import profilepic from "./profilepic.jpg"
+import linkedin from "./linkedin.ico"
+import githubIcon from "./github.ico"
+import twitterIcon from "./twitter.ico"
 
 export {
     BarsSVG,
@@ -23,5 +27,10 @@ export {
     EyeSVG,
     EyeNotSVG,
     backgroundImg,
+    profilepic,
+    linkedin,
+    githubIcon,
+    twitterIcon,
+
     
 }

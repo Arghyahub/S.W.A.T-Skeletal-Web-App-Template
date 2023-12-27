@@ -6,7 +6,15 @@ import { Link } from "react-router-dom";
 import { USER } from "@/services/service";
 import { userDataAtom } from "@/recoil/atom";
 import SimpleNavbar from "@/components/navbar/SimpleNavbar";
-import { backgroundImg , AuthVec } from "@/assets";
+import { 
+  backgroundImg, 
+  AuthVec, 
+  profilepic,
+  linkedin,
+  githubIcon,
+  twitterIcon,
+
+} from "@/assets";
 import { ImgTxtCarousel } from "@/components/reusables";
 
 const DummyCarouselAction = [
@@ -16,7 +24,7 @@ const DummyCarouselAction = [
 ]
 
 const DummyMembers = [
-  {img: AuthVec, text: 'Arghya'},
+  {img: profilepic, orHtml: <div className="flex flex-col items-center gap-2 text-sm md:text-md"><p className="font-semibold text-lg">Arghya</p> <p>SDE Intern | Web Developer | ML & Docker</p></div>},
   {img: AuthVec, text: 'Also Arghya'},
   {img: AuthVec, text: 'Arghya but better'},
 ]
@@ -61,9 +69,15 @@ const Landing = () => {
         <p className="w-4/5">Add images and text to justify. Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint labore ipsa praesentium atque ratione modi totam laborum delectus dolor sapiente.</p>
       </div>
 
-      <div className="flex flex-col w-full min-h-[75vh] bg-zinc-700 gap-6 justify-center items-center text-white text-center">
+      <div className="flex flex-col w-full min-h-[75vh] bg-neutral-500 gap-6 justify-center items-center text-white text-center">
         <h2 className="font-semibold">Team members or reviews</h2>
-        <ImgTxtCarousel DataArr={DummyMembers} cardAspectClass="aspect-[16/12]" className="max-w-[250px] md:max-w-sm lg:max-w-sm" imgClassname='rounded-full w-32 h-32 border-2' />
+        <ImgTxtCarousel DataArr={DummyMembers} cardAspectClass="aspect-[16/12]" className="max-w-[250px] md:max-w-sm lg:max-w-sm" imgClassname='rounded-full w-20 h-20 md:w-28 md:h-28 border-2 object-cover' />
+      </div>
+
+      <div className="landingFooter flex flex-row justify-around py-2">
+        <a href="https://twitter.com/ArghyaDas04" className="flex flex-row items-center gap-3 text-teal-600 text-sm md:text-md hover:text-blue-400 hover:font-bold"><img src={twitterIcon} alt="Twitter" className="h-10 w-10 md:h-12 md:w-12" /> <p>Twitter</p> </a>
+        <a href="https://www.linkedin.com/in/arghya-das-045702222/" className="flex flex-row items-center gap-3 text-teal-600 text-sm md:text-md hover:text-blue-400 hover:font-bold"><img src={linkedin} alt="Linkedin" className="h-10 w-10 md:h-12 md:w-12" /> <p>Linkedin</p> </a>
+        <a href="http://github.com/Arghyahub" className="flex flex-row items-center gap-3 text-teal-600 text-sm md:text-md hover:text-blue-400 hover:font-bold"><img src={githubIcon} alt="Github" className="h-10 w-10 md:h-12 md:w-12" /> <p>Github</p> </a>
       </div>
 
     </div>
