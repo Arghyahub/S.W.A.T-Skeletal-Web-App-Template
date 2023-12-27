@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { screenWidthAtom, toastParamAtom } from "@/recoil/atom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { ToastAction } from "@/components/ui/toast"
-import { useToast } from "@/components/ui/use-toast"
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-import Navbar from "@/components/navbar/Navbar";
+import SimpleNavbar from "@/components/navbar/SimpleNavbar"; "@/components/navbar/SimpleNavbar";
 import { 
   AuthVec,
   EmailSVG,
@@ -29,9 +27,16 @@ interface inputParam {
 
 const Auth = () => {
   const navigate = useNavigate();
+  const {param} = useParams();
   const [IsNewUser, setIsNewUser] = useState(false) ;
   const [ToastState, setToastState] = useRecoilState(toastParamAtom);
   const screenWidth = useRecoilValue(screenWidthAtom) ;
+
+  useEffect(()=> {
+    if (!param || param.length===0) return;
+    if (param==='login') setIsNewUser(false) ;
+    if (param==='signup') setIsNewUser(true) ;
+  },[param])
 
   const handleSubmit = (e:React.FormEvent<HTMLFormElement> & inputParam) => {
     e.preventDefault();
@@ -45,7 +50,7 @@ const Auth = () => {
 
   return (
     <div className="h-screen w-screen flex flex-col">
-      <Navbar />
+      <SimpleNavbar />
       <div className="h-full w-full flex flex-row justify-center items-center bg-[var(--hover)] shadow-2xl">
 
         <div className="w-11/12 h-5/6 backdrop-blur-3xl bg-[var(--primary)] rounded-xl shadow-2xl flex flex-row">
