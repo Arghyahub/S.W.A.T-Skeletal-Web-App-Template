@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import BarsSVG from "./BarsSvg";
+import BarsSVG from "./BarsSVG";
 import LogoSVG from "./LogoSVG";
 import UserSVG from "./UserSVG";
 import EmailSVG from "./EmailSVG";
