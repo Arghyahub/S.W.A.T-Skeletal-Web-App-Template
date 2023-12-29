@@ -1,19 +1,22 @@
-import { Button } from "@/components/ui/button"
+import { Link } from "react-router-dom"
+
 import {
   Sheet,
-  SheetClose,
+  // SheetClose,
   SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
+  // SheetDescription,
+  // SheetFooter,
+  // SheetHeader,
+  // SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { BarsSVG } from "@/assets/"
+import { cn } from "@/lib/utils"
+import { FunctionComponent } from "react";
 
 interface SidebarPropsType {
-    TriggerIcon?: React.ComponentType,
-    Position?: 'left' | 'right' | 'top' | 'bottom',
+  TriggerIcon?: FunctionComponent<{ className?: string|undefined }>;
+  Position?: 'left' | 'right' | 'top' | 'bottom',
 }
 
 const Sidebar = ({TriggerIcon=BarsSVG, Position='left'}:SidebarPropsType) => {
@@ -32,11 +35,11 @@ const Sidebar = ({TriggerIcon=BarsSVG, Position='left'}:SidebarPropsType) => {
           </SheetDescription>
         </SheetHeader> */}
 
-        <div className="flex flex-col w-full h-full">
-          <div className="w-full h-28 bg-red-500 border-4"></div>
-          <div className="w-full h-28 bg-red-500 border-4"></div>
-          <div className="w-full h-28 bg-red-500 border-4"></div>
-          <div className="w-full h-28 bg-red-500 border-4"></div>
+        <div className="flex flex-col w-full h-full mt-4 gap-2">
+          <div className="w-full h-14 bg-gray-100 rounded-md flex flex-row items-center pl-4"><Link to='/'>Some Link or function</Link></div>
+          <div className="w-full h-14 bg-gray-100 rounded-md flex flex-row items-center pl-4"><Link to='/'>Some Link or function</Link></div>
+          <div className="w-full h-14 bg-gray-100 rounded-md flex flex-row items-center pl-4"><Link to='/'>Some Link or function</Link></div>
+          <div className="w-full h-14 bg-gray-100 rounded-md flex flex-row items-center pl-4"><Link to='/'>Some Link or function</Link></div>
         </div>
 
         <div className="grid gap-4 py-4">
