@@ -19,13 +19,6 @@ const Input:React.FC<inputProps> = ({ StartIcon , EndIcon, onChangeValidate, inp
   const [Valid, setValid] = useState<boolean>(false) ;
   const [TypeOfInput, setTypeOfInput] = useState<'text'|'password'>(inputType=='password'?'password':'text') ;
 
-  // useEffect(()=> {
-  //   if (!inputType || inputType==TypeOfInput ) return;
-  //   if (inputType==='password'){
-  //     setTypeOfInput('password') ;
-  //   }
-  // },[inputType,name])
-
   const defaultValidate = (e:React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     if (e.target.value.length <= 0){
