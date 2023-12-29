@@ -8,6 +8,7 @@ import {
 
 } from "../../assets/index";
 import Sidebar from "../sidebar/Sidebar";
+import NavDropDown from "./NavDropDown";
 
 const Navbar = ({ className = "" }) => {
   return (
@@ -27,8 +28,8 @@ const Navbar = ({ className = "" }) => {
       </div>
 
       {/* Right options */}
-      <div className="ml-auto mr-3 h-full flex flex-row items-center">
-        <UserSVG className="text-white" />
+      <div className="ml-auto mr-4 h-full flex flex-row items-center">
+        <NavDropDown/>
       </div>
 
     </div>

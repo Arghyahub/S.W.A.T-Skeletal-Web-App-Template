@@ -18,10 +18,15 @@ interface toastParamType {
     hasFunc: boolean,
     func?: () => void
 }
-
 const toastParamAtom = atom({
     key: 'toastParam',
     default: {title: '', desc: '', hasFunc: false, func: () => {}} as toastParamType
+})
+
+
+const loadingAtom = atom({
+    key: 'loading',
+    default: {open: false, text: ''} as {open:boolean, text?:string}
 })
 
 
@@ -29,5 +34,6 @@ export {
     userDataAtom,
     screenWidthAtom,
     toastParamAtom,
+    loadingAtom,
 
 }

@@ -4,7 +4,7 @@ import { useRecoilState } from "recoil";
 import { Link } from "react-router-dom";
 
 import { USER } from "@/services/service";
-import { userDataAtom } from "@/recoil/atom";
+import { loadingAtom, userDataAtom } from "@/recoil/atom";
 import SimpleNavbar from "@/components/navbar/SimpleNavbar";
 import { 
   backgroundImg, 
@@ -32,9 +32,10 @@ const DummyMembers = [
 const Landing = () => {
   const navigate = useNavigate() ;
   const [User, setUser] = useRecoilState(userDataAtom) ;
+  const [LoadingState, setLoadingState] = useRecoilState(loadingAtom) ;
 
   useEffect(() => {
-    USER.validate(navigate,setUser) ;
+    USER.validate(navigate,setUser,setLoadingState) ;
   }, [])
 
   return (

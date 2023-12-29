@@ -20,9 +20,15 @@ interface ValidateRespType {
     valid?: boolean
 }
 
+interface LoadingStateType {
+    open: boolean,
+    text?: string,
+}
+
 class USER {
-    public static async validate(navigate:NavigateFunction, setUser:SetterOrUpdater<UserDataType>, route='/') {
+    public static async validate(navigate:NavigateFunction, setUser:SetterOrUpdater<UserDataType>,setLoadingState:SetterOrUpdater<LoadingStateType>, route='/') {
         try {
+            setLoadingState({open: true, text: '...Setting up everything...'}) ;
             const token = localStorage.getItem('token') ;
             if (!token){
                 if (route==='/') return;
@@ -54,9 +60,12 @@ class USER {
         } catch (error) {
             console.log(error) ;
         }
+        finally{
+            setLoadingState({open: false, text: ''}) ;
+        }
     }
 
-    public static async signup(name:string, email:string, passwd: string, setToastState, navigate:NavigateFunction ){
+    public static async signup(name:string, email:string, passwd: string, setToastState, navigate:NavigateFunction, setLoadingState:SetterOrUpdater<LoadingStateType> ){
         try {
             if (!(name.length) || !(email.length) || !(passwd.length)){
                 setToastState({title: "Oops!", desc: "Ensure All Fields Are Filled", hasFunc: false}) ;
@@ -87,8 +96,9 @@ class USER {
         }
     }
     
-    public static async login(email:string, passwd: string, setToastState, navigate:NavigateFunction ){
+    public static async login(email:string, passwd: string, setToastState, navigate:NavigateFunction, setLoadingState:SetterOrUpdater<LoadingStateType> ){
         try {
+            setLoadingState({open: true, text: 'Loggin In'}) ;
             if (!(email.length) || !(passwd.length)){
                 setToastState({title: "Oops!", desc: "Ensure All Fields Are Filled", hasFunc: false}) ;
                 return;
@@ -116,6 +126,9 @@ class USER {
         catch(err) {
             console.log("Error occurred\n",err) ;
             setToastState({title: "Oops!", desc: "Some error occurred", hasFunc: false}) ;
+        }
+        finally{
+            setLoadingState({open: false, text: ''}) ;
         }
     }
 

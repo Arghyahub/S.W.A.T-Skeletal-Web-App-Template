@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { screenWidthAtom, toastParamAtom } from "@/recoil/atom";
+import { loadingAtom, screenWidthAtom, toastParamAtom } from "@/recoil/atom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -31,6 +31,8 @@ const Auth = () => {
   const [IsNewUser, setIsNewUser] = useState(false) ;
   const [ToastState, setToastState] = useRecoilState(toastParamAtom);
   const screenWidth = useRecoilValue(screenWidthAtom) ;
+  const [LoadingState, setLoadingState] = useRecoilState(loadingAtom) ;
+  
 
   useEffect(()=> {
     if (!param || param.length===0) return;
@@ -41,10 +43,10 @@ const Auth = () => {
   const handleSubmit = (e:React.FormEvent<HTMLFormElement> & inputParam) => {
     e.preventDefault();
     if (IsNewUser){
-      USER.signup( e.target.name.value, e.target.email.value, e.target.passwd.value, setToastState, navigate ) ;
+      USER.signup( e.target.name.value, e.target.email.value, e.target.passwd.value, setToastState, navigate, setLoadingState ) ;
     }
     else{
-      USER.login( e.target.email.value, e.target.passwd.value, setToastState, navigate )
+      USER.login( e.target.email.value, e.target.passwd.value, setToastState, navigate, setLoadingState )
     }
   }
 

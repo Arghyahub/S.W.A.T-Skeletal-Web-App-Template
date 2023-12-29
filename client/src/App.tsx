@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
   createBrowserRouter,
   RouterProvider,
-  Link
 } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { ToastAction } from "@/components/ui/toast"
@@ -14,6 +13,7 @@ import Landing from "./pages/Landing";
 import Auth from "./pages/Auth";
 import { screenWidthAtom, toastParamAtom } from "./recoil/atom";
 import Home from "./pages/Home";
+import { Loading } from "./components/reusables";
 
 const router = createBrowserRouter([
   {
@@ -69,6 +69,7 @@ const App = () => {
     <>
       <RouterProvider router={router} />
       <Toaster />
+      <Loading />
     </>
   )
 }
