@@ -14,16 +14,17 @@ interface inputProps {
   name: string
 }
 
-const Input:React.FC<inputProps> = ({ StartIcon , EndIcon, onChangeValidate, inputType, label='', name }) => {
+const Input:React.FC<inputProps> = ({ StartIcon , EndIcon, onChangeValidate, inputType='text', label='', name }) => {
   const inputBox = useRef(null) ;
   const [Valid, setValid] = useState<boolean>(false) ;
-  const [TypeOfInput, setTypeOfInput] = useState<'text'|'password'>('text') ;
+  const [TypeOfInput, setTypeOfInput] = useState<'text'|'password'>(inputType=='password'?'password':'text') ;
 
-  useEffect(()=> {
-    if (inputType==='password'){
-      setTypeOfInput('password') ;
-    }
-  },[inputType])
+  // useEffect(()=> {
+  //   if (!inputType || inputType==TypeOfInput ) return;
+  //   if (inputType==='password'){
+  //     setTypeOfInput('password') ;
+  //   }
+  // },[inputType,name])
 
   const defaultValidate = (e:React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -35,6 +36,9 @@ const Input:React.FC<inputProps> = ({ StartIcon , EndIcon, onChangeValidate, inp
     switch(inputType){
       case undefined:
         setValid(true) ;  // length > 0
+        break;
+      case 'text':
+        setValid(true) ;
         break;
       case 'email':
         setValid(/\S+@\S+\.\S+/.test(e.target.value)) ;
@@ -58,7 +62,7 @@ const Input:React.FC<inputProps> = ({ StartIcon , EndIcon, onChangeValidate, inp
       <div className="input-box flex flex-col h-full w-full px-3">
         <p className="text-xs text-gray-400 font-thin">{label}</p>
         <input
-          type={TypeOfInput}
+          type={inputType=='text'?'text':TypeOfInput}
           className="flex flex-row w-full h-5 focus:outline-none font-sans"
           ref={inputBox}
           name={name}
