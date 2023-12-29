@@ -23,7 +23,7 @@ const Input:React.FC<inputProps> = ({ StartIcon , EndIcon, onChangeValidate, inp
     if (inputType==='password'){
       setTypeOfInput('password') ;
     }
-  },[])
+  },[inputType])
 
   const defaultValidate = (e:React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
